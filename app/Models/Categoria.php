@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Categoria extends Model
@@ -12,7 +13,12 @@ class Categoria extends Model
         'descripcion',
     ];
 
-    public function platos(): HasMany{
+    public function carta(): BelongsTo
+    {
+        return $this->belongsTo(Carta::class);
+    }
+    public function platos(): HasMany
+    {
         return $this->hasMany(Plato::class);
     }
 }

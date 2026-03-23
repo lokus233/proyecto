@@ -17,17 +17,14 @@ class Carrito extends Model
         'metodo_pago',
     ];
 
-    public function usuario(): BelongsTo{
+    public function usuario(): BelongsTo
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function cartas(): BelongsToMany{
-        return $this->belongsToMany(Carta::class);
+    public function platos(): BelongsToMany
+    {
+        return $this->belongsToMany(Plato::class)->withPivot("cantidad");
     }
-
-    public function platos(): BelongsToMany{
-        return $this->belongsToMany(Plato::class);
-    }
-
 
 }

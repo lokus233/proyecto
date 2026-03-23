@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->text('descripcion')->nullable();
+            $table->foreignId('carta_id')->constrained();
             $table->timestamps();
         });
     }

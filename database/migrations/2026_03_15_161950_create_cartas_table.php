@@ -15,9 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->text('descripcion')->nullable();
-            $table->decimal('precio')->nullable();
+            $table->decimal('precio', 8, 2)->nullable();
             $table->string('imagen')->nullable();
-            $table->string('alergenos')->nullable();
             $table->timestamps();
         });
     }

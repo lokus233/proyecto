@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('numero_personas');
             $table->string('estado');
             $table->date('fecha_reserva');
-            $table->date('hora_reserva');
+            $table->time('hora_reserva');
             $table->timestamps();
         });
     }

@@ -18,15 +18,18 @@ class Plato extends Model
         'categoria_id',
     ];
 
-    public function carta():BelongsTo{
+
+    public function categoria(): BelongsTo
+    {
+        return $this->belongsTo(Categoria::class);
+    }
+    public function carta(): BelongsTo
+    {
         return $this->belongsTo(Carta::class);
     }
 
-    public function categoria(): BelongsTo{
-        return $this->belongsTo(Categoria::class);
-    }
-
-    public function carritos():BelongsToMany{
-        return $this->belongsToMany(Carrito::class);
+    public function carritos(): BelongsToMany
+    {
+        return $this->belongsToMany(Carrito::class)->withPivot("cantidad");
     }
 }

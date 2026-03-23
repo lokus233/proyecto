@@ -15,15 +15,19 @@ class Carta extends Model
         'imagen',
         'alergenos',
     ];
-    public function usuarios(): BelongsToMany{
+
+    public function usuarios(): BelongsToMany
+    {
         return $this->belongsToMany(User::class);
     }
 
-    public function platos(): HasMany{
-        return $this->hasMany(Plato::class);
+    public function categorias(): HasMany
+    {
+        return $this->hasMany(Categoria::class);
     }
 
-    public function carritos(): BelongsToMany{
-        return $this->belongsToMany(Carrito::class);
+    public function platos(): HasMany
+    {
+        return $this->hasMany(Plato::class);
     }
 }
