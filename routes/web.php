@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 use Laravel\Fortify\Features;
 
 Route::inertia('/', 'welcome', [
@@ -11,4 +12,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
 });
 
+Route::get('/home', function () {
+    return Inertia::render('home', [
+        'mensaje' => '¡Hola desde el controlador de Laravel!',
+        'usuario' => auth()->user()
+    ]);
+});
 require __DIR__.'/settings.php';
