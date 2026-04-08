@@ -12,8 +12,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
 });
 
-Route::get('/home', function () {
-    return Inertia::render('home', [
+Route::get('/Header', function () {
+    return Inertia::render('Header', [
         'mensaje' => '¡Hola desde el controlador de Laravel!',
         'usuario' => auth()->user()
     ]);

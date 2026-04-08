@@ -17,7 +17,7 @@ createInertiaApp({
         const page = pages[`./pages/${name}.jsx`] || pages[`./pages/${name}.tsx`];
 
         if (!page) {
-            console.error(`Ojo picha: No encuentro el archivo ./pages/${name}.jsx`);
+            console.error(`No se encuentra el archivo ./pages/${name}.jsx`);
         }
 
         page.default.layout = page.default.layout || ((page) => {
