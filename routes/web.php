@@ -4,18 +4,15 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
 
-Route::inertia('/', 'welcome', [
-    'canRegister' => Features::enabled(Features::registration()),
-])->name('home');
-
+Route::get('/', function () {
+    return Inertia::render('Home', [
+        'canRegister' => Features::enabled(Features::registration()),
+        'mensaje' => '¡Bienvenidos a El Candelabro!',
+        'usuario' => auth()->user()
+    ]);
+})->name('home');
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
 });
 
-Route::get('/Header', function () {
-    return Inertia::render('Header', [
-        'mensaje' => '¡Hola desde el controlador de Laravel!',
-        'usuario' => auth()->user()
-    ]);
-});
 require __DIR__.'/settings.php';
