@@ -3,68 +3,73 @@ import React from 'react';
 function Footer() {
     const contenedorPrincipal = {
         display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '2rem',
-        color: 'black',
+        alignItems: 'flex-start',
+        padding: '3rem 2rem',
+        color: '#e3e0dd',
         fontFamily: 'serif',
-        fontWeight: 'bold',
-        borderTop: '1px solid #000000',
+        backgroundColor: 'black',
     };
 
     const columnas = {
         display: 'flex',
         flexDirection: 'column',
-        gap: '0.5rem',
-    };
-
-
-    const botones = {
-        color: 'black',
-        border: '2px solid black',
-        padding: '0.5rem 1rem',
-        cursor: 'pointer',
-        fontFamily: 'inherit',
-        fontWeight: 'bold',
+        gap: '0.8rem',
+        flex: 1.5,
     };
 
     const titulo = {
-        fontSize: '2rem',
-        margin: 0,
-        borderBottom: '2px solid black',
-        marginBottom: '0.5rem',
+        fontSize: '2.25rem',
+        fontWeight: '500',
+        textDecoration: 'underline',
+        color: '#e3e0dd',
+        flex: '0 1 auto',
+    };
+
+    const enlaceEstilo = {
+        color: '#d0923c',
+        textDecoration: 'none',
+        fontSize: '0.9rem'
+    };
+
+    const subtitulos = {
+        fontWeight: 'bold',
+        color: '#e3e0dd',
+        fontSize: '1.5rem'
+
     }
 
     return (
         <footer style={contenedorPrincipal}>
             <div style={columnas}>
-                <a href='#nosotros'>PONER NUIMERO</a>
-                <a href='#nosotros'>PONER EMAIL</a>
+                <h2 style={titulo}>El Candelabro</h2>
+                <p style={{ margin: 0, fontWeight: 'normal' }}>
+                    Hacer una descripción aquí.
+                </p>
             </div>
 
-            <div style={{ ...columnas, alignItems: 'center' }}>
-                <h2 style={titulo}>
-                    El candelabro
-                </h2>
-                <button
-                    onClick={() => window.location.href = '#reserva'}
-                    style={botones}
-                >
+            <div style={columnas}>
+                <span style={subtitulos}>Contacto</span>
+                <a href='#Nosotros' style={enlaceEstilo}>Poner aquí el telefono</a>
+                <a href='mailto:info@elcandelabro.com' style={enlaceEstilo}>Poner aquí un email</a>
+            </div>
+
+            <div style={columnas}>
+                <span style={subtitulos}>Gestiones</span>
+                <a href='#reserva' style={enlaceEstilo}>
                     Reserva
-                </button>
+                </a>
+                <a href="#menu" style={enlaceEstilo}>Ver Menú</a>
             </div>
 
-            <div style={{ ...columnas, alignItems: 'flex-end' }}>
-                <button
-                onClick={() => window.location.href = '#nosotros'}
-                style={botones}>
+            <div style={ columnas}>
+                <a href='#Nosotros' style={subtitulos}>
                     Nosotros
-                </button>
+                </a>
                 <div style={{ display: 'flex', gap: '1rem', marginTop: '0.5rem' }}>
-                    <span style={{ cursor: 'pointer' }}>FB</span>
-                    <span style={{ cursor: 'pointer' }}>IG</span>
-                    <span style={{ cursor: 'pointer' }}>X</span>
-                    <span style={{ cursor: 'pointer' }}>TK</span>
+                    <span style={{ cursor: 'pointer', fontWeight: 'bold' }}>FB</span>
+                    <span style={{ cursor: 'pointer', fontWeight: 'bold' }}>IG</span>
+                    <span style={{ cursor: 'pointer', fontWeight: 'bold' }}>X</span>
+                    <span style={{ cursor: 'pointer', fontWeight: 'bold' }}>TK</span>
                 </div>
             </div>
         </footer>
