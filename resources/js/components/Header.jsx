@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 function Header() {
     const contenedorPrincipal = {
         width: '100%',
@@ -42,16 +42,14 @@ function Header() {
                 <h1 style={titulo}>El Candelabro</h1>
 
                 <nav style={barraNav}>
-                    <a href="#" style={enlaces}>Descripción</a>
-                    <a href="#" style={enlaces}>Carta</a>
-                    <a href="#" style={enlaces}>Bodega</a>
-                    <a href="#" style={enlaces}>Reserva</a>
-                    <a href="#" style={enlaces}>Galería</a>
-                    <a href="#" style={enlaces}>Contacto</a>
-                    <a href="#" style={enlaces}>Pedir Online</a>
+                    <Link name="inicio" to="/" style={enlaces}>Inicio</Link>
+                    <Link name="carta" to="/carta" style={enlaces}>Carta</Link>
+                    <Link name="bodega" to="/bodega" style={enlaces}>Bodega</Link>
+                    <Link name="reserva" to="/reserva" style={enlaces}>Reserva</Link>
+                    <Link name="galeria" to="/galeria" style={enlaces}>Galería</Link>
+                    <Link name="contacto" to="/contacto" style={enlaces}>Contacto</Link>
                 </nav>
 
-                {/* Div vacío opcional para balancear el centro exacto */}
                 <div style={{flex: '0 1 auto', width: '200px', visibility: 'hidden'}} className="spacer"></div>
             </div>
         </header>
