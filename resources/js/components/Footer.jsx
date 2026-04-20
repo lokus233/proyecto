@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Footer() {
     const contenedorPrincipal = {
@@ -49,22 +50,18 @@ function Footer() {
 
             <div style={columnas}>
                 <span style={subtitulos}>Contacto</span>
-                <a href='#Nosotros' style={enlaceEstilo}>Poner aquí el telefono</a>
-                <a href='mailto:info@elcandelabro.com' style={enlaceEstilo}>Poner aquí un email</a>
+                <Link to="/nosotros" style={enlaceEstilo}>Poner aquí el telefono</Link>
+                <Link to="/nosotros" style={enlaceEstilo}>Poner aquí un email</Link>
             </div>
 
             <div style={columnas}>
                 <span style={subtitulos}>Gestiones</span>
-                <a href='#reserva' style={enlaceEstilo}>
-                    Reserva
-                </a>
-                <a href="#menu" style={enlaceEstilo}>Ver Menú</a>
+                <Link to="/reserva" style={enlaceEstilo}>Reserva</Link>
+                <Link to="/carta" style={enlaceEstilo}>Ver Menú</Link>
             </div>
 
-            <div style={ columnas}>
-                <a href='#Nosotros' style={subtitulos}>
-                    Nosotros
-                </a>
+            <div style={columnas}>
+                <Link to="/nosotros" style={subtitulos}>Nosotros</Link>
                 <div style={{ display: 'flex', gap: '1rem', marginTop: '0.5rem' }}>
                     <span style={{ cursor: 'pointer', fontWeight: 'bold' }}>FB</span>
                     <span style={{ cursor: 'pointer', fontWeight: 'bold' }}>IG</span>

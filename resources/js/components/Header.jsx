@@ -31,7 +31,7 @@ function Header() {
     };
 
     const enlaces = {
-        fontSize: '1.25rem',
+        fontSize: '1.45rem',
         textDecoration: 'underline',
         color: '#e3e0dd',
     };
@@ -47,7 +47,7 @@ function Header() {
                     <Link name="bodega" to="/bodega" style={enlaces}>Bodega</Link>
                     <Link name="reserva" to="/reserva" style={enlaces}>Reserva</Link>
                     <Link name="galeria" to="/galeria" style={enlaces}>Galería</Link>
-                    <Link name="contacto" to="/contacto" style={enlaces}>Contacto</Link>
+                    <Link name="nosotros" to="/nosotros" style={enlaces}>Contacto</Link>
                 </nav>
 
                 <div style={{flex: '0 1 auto', width: '200px', visibility: 'hidden'}} className="spacer"></div>
