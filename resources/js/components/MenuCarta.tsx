@@ -13,7 +13,7 @@ export default function MenuCarta({ categorias = [] }: Props) {
 
     const seccion = {
         backgroundColor: 'white',
-        padding: '2rem 5%',
+        padding: '4rem 5%',
         fontFamily: 'serif',
         minHeight: '65.85vh'
     };
@@ -30,7 +30,7 @@ export default function MenuCarta({ categorias = [] }: Props) {
         display: 'flex',
         justifyContent: 'center',
         gap: '1rem',
-        marginBottom: '2.5rem',
+        marginBottom: '7rem',
         flexWrap: 'wrap' as const
     };
 
@@ -43,6 +43,7 @@ export default function MenuCarta({ categorias = [] }: Props) {
                         onClick={() => setActiva(i)}
                         style={{
                             padding: '0.5rem 1.5rem',
+                            fontSize: '1.8rem',
                             borderRadius: '999px',
                             border: '1px solid #999',
                             cursor: 'pointer',
