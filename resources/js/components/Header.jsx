@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '@inertiajs/react';
 function Header() {
     const contenedorPrincipal = {
         width: '100%',
@@ -42,15 +42,15 @@ function Header() {
                 <h1 style={titulo}>El Candelabro</h1>
 
                 <nav style={barraNav}>
-                    <Link name="inicio" to="/" style={enlaces}>Inicio</Link>
-                    <Link name="carta" to="/carta" style={enlaces}>Carta</Link>
-                    <Link name="bodega" to="/bodega" style={enlaces}>Bodega</Link>
-                    <Link name="reserva" to="/reserva" style={enlaces}>Reserva</Link>
-                    <Link name="galeria" to="/galeria" style={enlaces}>Galería</Link>
-                    <Link name="nosotros" to="/nosotros" style={enlaces}>Contacto</Link>
+                    <Link href="/" style={enlaces}>Inicio</Link>
+                    <Link href="/carta" style={enlaces}>Carta</Link>
+                    <Link href="/bodega" style={enlaces}>Bodega</Link>
+                    <Link href="/reserva" style={enlaces}>Reserva</Link>
+                    <Link href="/galeria" style={enlaces}>Galería</Link>
+                    <Link href="/nosotros" style={enlaces}>Contacto</Link>
                 </nav>
 
-                <div style={{flex: '0 1 auto', width: '200px', visibility: 'hidden'}} className="spacer"></div>
+                <div style={{ flex: '0 1 auto', width: '200px', visibility: 'hidden' }} className="spacer"></div>
             </div>
         </header>
     );

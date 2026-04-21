@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '@inertiajs/react';
 
 function Footer() {
     const contenedorPrincipal = {
@@ -36,8 +36,7 @@ function Footer() {
         fontWeight: 'bold',
         color: '#e3e0dd',
         fontSize: '1.5rem'
-
-    }
+    };
 
     return (
         <footer style={contenedorPrincipal}>
@@ -50,18 +49,18 @@ function Footer() {
 
             <div style={columnas}>
                 <span style={subtitulos}>Contacto</span>
-                <Link to="/nosotros" style={enlaceEstilo}>Poner aquí el telefono</Link>
-                <Link to="/nosotros" style={enlaceEstilo}>Poner aquí un email</Link>
+                <Link href="/nosotros" style={enlaceEstilo}>Poner aquí el telefono</Link>
+                <Link href="/nosotros" style={enlaceEstilo}>Poner aquí un email</Link>
             </div>
 
             <div style={columnas}>
                 <span style={subtitulos}>Gestiones</span>
-                <Link to="/reserva" style={enlaceEstilo}>Reserva</Link>
-                <Link to="/carta" style={enlaceEstilo}>Ver Menú</Link>
+                <Link href="/reserva" style={enlaceEstilo}>Reserva</Link>
+                <Link href="/carta" style={enlaceEstilo}>Ver Menú</Link>
             </div>
 
             <div style={columnas}>
-                <Link to="/nosotros" style={subtitulos}>Nosotros</Link>
+                <Link href="/nosotros" style={subtitulos}>Nosotros</Link>
                 <div style={{ display: 'flex', gap: '1rem', marginTop: '0.5rem' }}>
                     <span style={{ cursor: 'pointer', fontWeight: 'bold' }}>FB</span>
                     <span style={{ cursor: 'pointer', fontWeight: 'bold' }}>IG</span>

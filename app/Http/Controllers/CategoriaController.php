@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Categoria;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class CategoriaController extends Controller
 {
@@ -12,7 +13,11 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        //
+        $categorias = Categoria::with('platos')->get();
+
+        return Inertia::render('carta',[
+            'categorias' => $categorias,
+        ]);
     }
 
     /**

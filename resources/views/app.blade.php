@@ -10,6 +10,6 @@
         @vite(['resources/js/main.jsx'])
     </head>
     <body>
-        <div id="app"></div>
+        @inertia
     </body>
 </html>

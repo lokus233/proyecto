@@ -2,8 +2,8 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import MenuCarta from '../components/MenuCarta';
 
-export default function Carta() {
-
+export default function Carta({categorias}) {
+console.log('categorias:', JSON.stringify(categorias));
     const main = {
         backgroundColor: 'black',
         color: '#e3e0dd',
@@ -49,7 +49,7 @@ export default function Carta() {
                 </div>
             </section>
 
-            <MenuCarta />
+            <MenuCarta categorias={categorias} />
 
             <Footer />
         </div>

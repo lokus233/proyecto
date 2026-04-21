@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CategoriaController;
+use App\Models\Categoria;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -15,4 +17,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
 });
 
+
+Route::get('/carta', [CategoriaController::class, 'index']);
 require __DIR__.'/settings.php';
