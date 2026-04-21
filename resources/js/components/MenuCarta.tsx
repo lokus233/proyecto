@@ -9,17 +9,30 @@ interface Props {
 export default function MenuCarta({ categorias = [] }: Props) {
     const [activa, setActiva] = useState(0);
 
-    const seccion = { backgroundColor: 'white', padding: '3rem 2rem', fontFamily: 'serif' };
-    const contenedorTabs = { display: 'flex', justifyContent: 'center', gap: '0.75rem', marginBottom: '3rem' };
+    if (!categorias || categorias.length === 0) return null;
+
+    const seccion = {
+        backgroundColor: 'white',
+        padding: '2rem 5%',
+        fontFamily: 'serif',
+        minHeight: '65.85vh'
+    };
+
     const grid = {
         display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        gap: '2rem 4rem',
-        maxWidth: '1100px',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+        gap: '1.5rem 3rem',
+        maxWidth: '1600px',
         margin: '0 auto'
     };
 
-
+    const contenedorTabs = {
+        display: 'flex',
+        justifyContent: 'center',
+        gap: '1rem',
+        marginBottom: '2.5rem',
+        flexWrap: 'wrap' as const
+    };
 
     return (
         <section style={seccion}>
@@ -43,7 +56,7 @@ export default function MenuCarta({ categorias = [] }: Props) {
             </div>
 
             <div style={grid}>
-                {categorias[activa]?.platos.map((plat: Plato) => (
+                {categorias[activa]?.platos?.map((plat: Plato) => (
                     <TarjetaPlato key={plat.id} {...plat} />
                 ))}
             </div>

@@ -19,4 +19,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
 Route::get('/carta', [CategoriaController::class, 'index']);
+
+
 require __DIR__.'/settings.php';

@@ -6,13 +6,14 @@ export default function TarjetaPlato({ nombre, descripcion, precio }) {
     };
 
     const nombreEstilo = {
-        fontWeight: '600',
+        fontSize: '1.5rem',
+        fontWeight: 'bold',
         color: '#1a1a1a',
         fontFamily: 'serif'
     };
 
     const descripcionEstilo = {
-        fontSize: '0.90rem',
+        fontSize: '1.2rem',
         color: '#666',
         fontStyle: 'italic',
     };
@@ -20,7 +21,7 @@ export default function TarjetaPlato({ nombre, descripcion, precio }) {
     const precioEstilo = {
         color: '#b8860b',
         fontWeight: 'bold',
-        fontSize: '1rem',
+        fontSize: '1.1rem',
     };
 
     return (
