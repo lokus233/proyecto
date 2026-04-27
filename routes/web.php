@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\PlatoController;
 use App\Models\Categoria;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -30,11 +31,11 @@ Route::get('/login', function () {
 })->name('login');
 
 Route::post('/login', function (Request $request) {
-    $credentials = $request->validate([
+    $datosCuenta = $request->validate([
         'email' => ['required', 'email'],
         'password' => ['required'],
     ]);
-    if (Auth::attempt($credentials)) {
+    if (Auth::attempt($datosCuenta)) {
         $request->session()->regenerate();
         return redirect()->intended('/');
     }
@@ -57,26 +58,29 @@ Route::get('/register', function () {
 })->name('register');
 
 Route::post('/register', function (Request $request) {
-    $data = $request->validate([
+    $datosRegistro = $request->validate([
         'nombre'   => ['required', 'string', 'max:255'],
         'apellidos'=> ['required', 'string', 'max:255'],
-        'email'    => ['required', 'email', 'unique:users'],
+        'email'    => ['required', 'email', 'unique:usuarios'],
         'telefono' => ['nullable', 'string', 'max:20'],
         'password' => ['required', 'confirmed', 'min:8'],
     ]);
 
-    $user = \App\Models\User::create([
-        'nombre'    => $data['nombre'],
-        'apellidos' => $data['apellidos'],
-        'email'     => $data['email'],
-        'telefono'  => $data['telefono'] ?? null,
-        'password'  => bcrypt($data['password']),
+    $usuario = \App\Models\User::create([
+        'nombre'    => $datosRegistro['nombre'],
+        'apellidos' => $datosRegistro['apellidos'],
+        'email'     => $datosRegistro['email'],
+        'telefono'  => $datosRegistro['telefono'] ?? null,
+        'password'  => bcrypt($datosRegistro['password']),
     ]);
 
-    Auth::login($user);
+    Auth::login($usuario);
 
     return redirect('/');
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::resource('platos', PlatoController::class);
+});
 
 require __DIR__ . '/settings.php';
