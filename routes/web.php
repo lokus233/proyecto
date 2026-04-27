@@ -5,12 +5,13 @@ use App\Models\Categoria;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return Inertia::render('Home', [
         'canRegister' => Features::enabled(Features::registration()),
         'mensaje' => '¡Bienvenidos a El Candelabro!',
-        'usuario' => auth()->user()
     ]);
 })->name('home');
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -20,5 +21,62 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::get('/carta', [CategoriaController::class, 'index']);
 
+Route::get('/login', function () {
+    return Inertia::render('auth/login',[
+        'Registro' => 'true',
+        'ResetContraseña' => 'false'
+    ]);
 
-require __DIR__.'/settings.php';
+})->name('login');
+
+Route::post('/login', function (Request $request) {
+    $credentials = $request->validate([
+        'email' => ['required', 'email'],
+        'password' => ['required'],
+    ]);
+    if (Auth::attempt($credentials)) {
+        $request->session()->regenerate();
+        return redirect()->intended('/');
+    }
+    return back()->withErrors([
+        'email' => 'Ese email o contraseña no son correctos.',
+
+    ])->onlyInput('email');
+});
+
+Route::post('/logout', function (Request $request) {
+    Auth::logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+    return redirect('/');
+})->name('logout');
+
+
+Route::get('/register', function () {
+    return Inertia::render('auth/register');
+})->name('register');
+
+Route::post('/register', function (Request $request) {
+    $data = $request->validate([
+        'nombre'   => ['required', 'string', 'max:255'],
+        'apellidos'=> ['required', 'string', 'max:255'],
+        'email'    => ['required', 'email', 'unique:users'],
+        'telefono' => ['nullable', 'string', 'max:20'],
+        'password' => ['required', 'confirmed', 'min:8'],
+    ]);
+
+    $user = \App\Models\User::create([
+        'nombre'    => $data['nombre'],
+        'apellidos' => $data['apellidos'],
+        'email'     => $data['email'],
+        'telefono'  => $data['telefono'] ?? null,
+        'password'  => bcrypt($data['password']),
+    ]);
+
+    Auth::login($user);
+
+    return redirect('/');
+});
+
+
+require __DIR__ . '/settings.php';
