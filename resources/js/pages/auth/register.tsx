@@ -98,6 +98,7 @@ export default function Register() {
                                         type="text"
                                         name="nombre"
                                         required
+                                        pattern="^[A-Za-z ]+$"
                                         autoFocus
                                         autoComplete="given-name"
                                         placeholder="Tu nombre"
@@ -112,6 +113,7 @@ export default function Register() {
                                         type="text"
                                         name="apellidos"
                                         required
+                                        pattern="^[A-Za-z ]+$"
                                         autoComplete="family-name"
                                         placeholder="Tus apellidos"
                                         style={input}
@@ -125,6 +127,7 @@ export default function Register() {
                                         type="email"
                                         name="email"
                                         required
+                                        pattern="^(.+@.+\.[a-zA-Z]{2,3})$"
                                         autoComplete="email"
                                         placeholder="email@ejemplo.com"
                                         style={input}
@@ -137,6 +140,7 @@ export default function Register() {
                                     <input
                                         type="tel"
                                         name="telefono"
+                                        pattern="^\\(\\+\\d{2,3}\\)\\d{9}$"
                                         autoComplete="tel"
                                         placeholder="600 000 000"
                                         style={input}
@@ -149,6 +153,8 @@ export default function Register() {
                                     <PasswordInput
                                         name="password"
                                         required
+                                        minLength={6}
+                                        maxLength={25}
                                         autoComplete="new-password"
                                         placeholder="Contraseña"
                                         style={input}
@@ -161,6 +167,8 @@ export default function Register() {
                                     <PasswordInput
                                         name="password_confirmation"
                                         required
+                                        minLength={6}
+                                        maxLength={25}
                                         autoComplete="new-password"
                                         placeholder="Repite la contraseña"
                                         style={input}

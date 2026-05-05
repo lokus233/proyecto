@@ -1,6 +1,4 @@
 <?php
-
-
 namespace App\Http\Controllers;
 
 
@@ -11,12 +9,9 @@ use Inertia\Inertia;
 
 class CategoriaController extends Controller
 {
-   /**
-    * Display a listing of the resource.
-    */
    public function index()
    {
-       $categorias = Categoria::with([
+       $categorias = Categoria::where('activo', true)->with([
            'platos' => function ($query) {
                $query->orderBy('nombre');
            }
@@ -29,56 +24,85 @@ class CategoriaController extends Controller
    }
 
 
-   /**
-    * Show the form for creating a new resource.
-    */
+
+
    public function create()
    {
-       //
+       return Inertia::render('AdminCategoriasCreate');
    }
 
 
-   /**
-    * Store a newly created resource in storage.
-    */
    public function store(Request $request)
    {
-       //
+       $datosCateg = $request->validate([
+           'nombre' => ['required', 'string', 'max:255'],
+           'descripcion' => ['nullable', 'string'],
+           'imagen' => ['nullable', 'image', 'max:2048'],
+       ]);
+
+
+       if ($request->hasFile('imagen')) {
+           $datosCateg['imagen'] = $request->file('imagen')->store('categorias', 'public');
+       }
+
+
+       Categoria::create($datosCateg);
+
+
+       return redirect()->route('categorias.admin')->with('success', 'Categoría creada correctamente.');
    }
-
-
-   /**
-    * Display the specified resource.
-    */
-   public function show(Categoria $categoria)
-   {
-       //
-   }
-
-
-   /**
-    * Show the form for editing the specified resource.
-    */
    public function edit(Categoria $categoria)
    {
-       //
+       return Inertia::render('AdminCategoriasEdit', [
+           'categoria' => $categoria,
+       ]);
    }
 
 
-   /**
-    * Update the specified resource in storage.
-    */
    public function update(Request $request, Categoria $categoria)
    {
-       //
+       $datos = $request->validate([
+           'nombre' => ['required', 'string', 'max:255'],
+           'descripcion' => ['nullable', 'string'],
+           'imagen' => ['nullable', 'image', 'max:2048'],
+       ]);
+
+
+       if ($request->hasFile('imagen')) {
+           $datos['imagen'] = $request->file('imagen')->store('categorias', 'public');
+       } else {
+           unset($datos['imagen']);
+       }
+
+
+       $categoria->update($datos);
+
+
+       return redirect()->route('categorias.admin')->with('success', 'Categoría actualizada correctamente.');
    }
 
 
-   /**
-    * Remove the specified resource from storage.
-    */
    public function destroy(Categoria $categoria)
    {
-       //
+       $categoria->delete();
+       return redirect()->route('categorias.admin')->with('success', 'Categoría eliminada correctamente.');
    }
+
+
+   public function adminIndex()
+   {
+       $categorias = Categoria::orderBy('nombre')->get();
+       return Inertia::render('AdminCategorias', [
+           'categorias' => $categorias,
+       ]);
+   }
+
+
+   public function cambiarActivoOculto(Categoria $categoria)
+   {
+       $categoria->update(['activo' => !$categoria->activo]);
+       return redirect()->route('categorias.admin');
+   }
+
+
 }

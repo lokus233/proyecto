@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, usePage } from '@inertiajs/react';
 
 
@@ -6,6 +6,7 @@ function Header() {
    const { auth } = usePage().props;
    const usuario = auth?.user;
    const esAdmin = auth?.esAdmin;
+   const [adminAbierto, setAdminAbierto] = useState(false);
 
 
    const contenedorPrincipal = {
@@ -89,9 +90,34 @@ function Header() {
        border: '1px solid #a0be94',
        padding: '0.4rem 1.2rem',
        borderRadius: '4px',
-       textDecoration: 'none',
        whiteSpace: 'nowrap',
-       transition: 'background-color 0.2s, color 0.2s',
+       cursor: 'pointer',
+       background: 'none',
+       fontFamily: 'serif',
+   };
+
+
+   const dropdown = {
+       position: 'absolute',
+       top: '100%',
+       right: 0,
+       backgroundColor: '#111',
+       border: '1px solid #a0be94',
+       borderRadius: '4px',
+       display: 'flex',
+       flexDirection: 'column',
+       zIndex: 100,
+       minWidth: '160px',
+   };
+
+
+   const enlaceDropdown = {
+       padding: '0.7rem 1.2rem',
+       color: '#e3e0dd',
+       textDecoration: 'none',
+       fontSize: '1rem',
+       fontFamily: 'serif',
+       borderBottom: '1px solid #222',
    };
 
 
@@ -100,7 +126,20 @@ function Header() {
        Logeo = (
            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flex: '0 1 auto' }}>
                {esAdmin && (
-                   <Link href="/platos" style={botonAdmin}>Panel admin</Link>
+                   <div style={{ position: 'relative' }}>
+                       <button
+                           onClick={() => setAdminAbierto(!adminAbierto)}
+                           style={botonAdmin}
+                       >
+                           Panel admin ▾
+                       </button>
+                       {adminAbierto && (
+                           <div style={dropdown}>
+                               <Link href="/platos" style={enlaceDropdown} onClick={() => setAdminAbierto(false)}>Platos</Link>
+                               <Link href="/adminCategorias" style={enlaceDropdown} onClick={() => setAdminAbierto(false)}>Categorías</Link>
+                           </div>
+                       )}
+                   </div>
                )}
                <span style={nombreUsuario}>{usuario.nombre}</span>
                <Link
@@ -138,5 +177,3 @@ function Header() {
 
 
 export default Header;
-
-

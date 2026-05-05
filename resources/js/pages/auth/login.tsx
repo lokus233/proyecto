@@ -109,6 +109,7 @@ const boton = {
                                         type="email"
                                         name="email"
                                         required
+                                        pattern="^(.+@.+\.[a-zA-Z]{2,3})$"
                                         autoFocus
                                         autoComplete="email"
                                         placeholder="email@ejemplo.com"
@@ -129,6 +130,8 @@ const boton = {
                                     <PasswordInput
                                         name="password"
                                         required
+                                        minLength={6}
+                                        maxLength={25}
                                         autoComplete="current-password"
                                         placeholder="Contraseña"
                                         style={input}

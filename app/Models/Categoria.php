@@ -11,6 +11,8 @@ class Categoria extends Model
     protected $fillable = [
         'nombre',
         'descripcion',
+        'imagen',
+        'activo'
     ];
 
     public function platos(): HasMany
