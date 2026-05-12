@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, usePage } from '@inertiajs/react';
+import { useCarrito } from '@/components/carritoComp';
 
 
 function Header() {
@@ -7,6 +8,8 @@ function Header() {
    const usuario = auth?.user;
    const esAdmin = auth?.esAdmin;
    const [adminAbierto, setAdminAbierto] = useState(false);
+   const { carrito } = useCarrito();
+   const totalCarrito = carrito.reduce((acc, item) => acc + item.cantidad, 0);
 
 
    const contenedorPrincipal = {
@@ -121,6 +124,20 @@ function Header() {
    };
 
 
+   const botonCarrito = {
+       fontSize: '1.15rem',
+       color: '#e3e0dd',
+       border: '1px solid #e3e0dd',
+       padding: '0.4rem 1.2rem',
+       borderRadius: '4px',
+       whiteSpace: 'nowrap',
+       cursor: 'pointer',
+       background: 'none',
+       fontFamily: 'serif',
+       textDecoration: 'none',
+   };
+
+
    let Logeo;
    if (usuario) {
        Logeo = (
@@ -137,10 +154,14 @@ function Header() {
                            <div style={dropdown}>
                                <Link href="/platos" style={enlaceDropdown} onClick={() => setAdminAbierto(false)}>Platos</Link>
                                <Link href="/adminCategorias" style={enlaceDropdown} onClick={() => setAdminAbierto(false)}>Categorías</Link>
+                               <Link href="/usuarios" style={enlaceDropdown} onClick={() => setAdminAbierto(false)}>Usuarios</Link>
                            </div>
                        )}
                    </div>
                )}
+               <Link href="/carrito" style={botonCarrito}>
+                   🛒 {totalCarrito}
+               </Link>
                <span style={nombreUsuario}>{usuario.nombre}</span>
                <Link
                    href="/logout"

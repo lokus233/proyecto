@@ -3,12 +3,18 @@ import { useState } from 'react';
 import Header from '@/components/Header';
 
 
+const ALERGENOS_DISPONIBLES = [
+   'Gluten', 'Lácteos', 'Huevo', 'Pescado', 'Moluscos',
+   'Crustáceos', 'Sésamo', 'Soja', 'Frutos secos', 'Mostaza', 'Sulfitos'
+];
+
+
 export default function AdminPlatosCreate({ categorias }) {
    const [datos, setDatos] = useState({
        nombre: '',
        descripcion: '',
        precio: '',
-       alergenos: '',
+       alergenos: [],
        imagen: null,
        categoria_id: '',
    });
@@ -19,9 +25,23 @@ export default function AdminPlatosCreate({ categorias }) {
    };
 
 
+   const handleAlergeno = (alergeno) => {
+       let nuevos;
+       if (datos.alergenos.includes(alergeno)) {
+           nuevos = datos.alergenos.filter(a => a !== alergeno);
+       } else {
+           nuevos = [...datos.alergenos, alergeno];
+       }
+       setDatos({ ...datos, alergenos: nuevos });
+   };
+
+
    const handleSubmit = (e) => {
        e.preventDefault();
-       router.post('/platos', datos, {
+       router.post('/platos', {
+           ...datos,
+           alergenos: datos.alergenos.join(', '),
+       }, {
            forceFormData: true,
        });
    };
@@ -127,7 +147,33 @@ export default function AdminPlatosCreate({ categorias }) {
 
                    <div>
                        <label style={label}>Alérgenos</label>
-                       <input name="alergenos" value={datos.alergenos} onChange={handleChange} style={input} />
+                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                           {ALERGENOS_DISPONIBLES.map(alergeno => (
+                               <button
+                                   key={alergeno}
+                                   type="button"
+                                   onClick={() => handleAlergeno(alergeno)}
+                                   style={{
+                                       padding: '0.3rem 0.8rem',
+                                       borderRadius: '4px',
+                                       fontSize: '0.95rem',
+                                       cursor: 'pointer',
+                                       fontFamily: 'serif',
+                                       border: datos.alergenos.includes(alergeno)
+                                           ? '1px solid #a0be94'
+                                           : '1px solid #444',
+                                       backgroundColor: datos.alergenos.includes(alergeno)
+                                           ? '#1a2e1a'
+                                           : 'transparent',
+                                       color: datos.alergenos.includes(alergeno)
+                                           ? '#a0be94'
+                                           : '#888',
+                                   }}
+                               >
+                                   {alergeno}
+                               </button>
+                           ))}
+                       </div>
                    </div>
 
 
@@ -163,5 +209,6 @@ export default function AdminPlatosCreate({ categorias }) {
        </div>
    );
 }
+
 
 

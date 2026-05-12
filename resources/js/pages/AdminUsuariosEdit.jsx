@@ -3,20 +3,13 @@ import { useState } from 'react';
 import Header from '@/components/Header';
 
 
-const ALERGENOS_DISPONIBLES = [
-   'Gluten', 'Lácteos', 'Huevo', 'Pescado', 'Moluscos',
-   'Crustáceos', 'Sésamo', 'Soja', 'Frutos secos', 'Mostaza', 'Sulfitos'
-];
-
-
-export default function AdminPlatosEdit({ plato, categorias }) {
+export default function AdminUsuariosEdit({ usuario, roles }) {
    const [datos, setDatos] = useState({
-       nombre: plato.nombre,
-       descripcion: plato.descripcion ?? '',
-       precio: plato.precio,
-       alergenos: plato.alergenos ? plato.alergenos.split(',').map(a => a.trim()) : [],
-       imagen: null,
-       categoria_id: plato.categoria_id,
+       nombre: usuario.nombre,
+       apellidos: usuario.apellidos,
+       email: usuario.email,
+       telefono: usuario.telefono ?? '',
+       roles: usuario.roles.map(r => r.id),
    });
 
 
@@ -25,22 +18,21 @@ export default function AdminPlatosEdit({ plato, categorias }) {
    };
 
 
-   const handleAlergeno = (alergeno) => {
+   const handleRol = (id) => {
        let nuevos;
-       if (datos.alergenos.includes(alergeno)) {
-           nuevos = datos.alergenos.filter(a => a !== alergeno);
+       if (datos.roles.includes(id)) {
+           nuevos = datos.roles.filter(r => r !== id);
        } else {
-           nuevos = [...datos.alergenos, alergeno];
+           nuevos = [...datos.roles, id];
        }
-       setDatos({ ...datos, alergenos: nuevos });
+       setDatos({ ...datos, roles: nuevos });
    };
 
 
    const handleSubmit = (e) => {
        e.preventDefault();
-       router.post(`/platos/${plato.id}`, {
+       router.post(`/usuarios/${usuario.id}`, {
            ...datos,
-           alergenos: datos.alergenos.join(', '),
            _method: 'PUT'
        }, {
            forceFormData: true,
@@ -61,7 +53,7 @@ export default function AdminPlatosEdit({ plato, categorias }) {
        <div style={main}>
            <Header />
            <div style={caja}>
-               <h1 style={titulo}>Editar plato</h1>
+               <h1 style={titulo}>Editar usuario</h1>
 
 
                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
@@ -72,76 +64,61 @@ export default function AdminPlatosEdit({ plato, categorias }) {
 
 
                    <div>
-                       <label style={label}>Descripción</label>
-                       <textarea name="descripcion" value={datos.descripcion} onChange={handleChange} rows={3} style={{ ...input, resize: 'vertical' }} />
+                       <label style={label}>Apellidos</label>
+                       <input name="apellidos" value={datos.apellidos} onChange={handleChange} required style={input} />
                    </div>
 
 
                    <div>
-                       <label style={label}>Precio (€)</label>
-                       <input name="precio" type="number" step="0.01" value={datos.precio} onChange={handleChange} required style={input} />
+                       <label style={label}>Email</label>
+                       <input name="email" type="email" value={datos.email} onChange={handleChange} required style={input} />
                    </div>
 
 
                    <div>
-                       <label style={label}>Alérgenos</label>
+                       <label style={label}>Teléfono</label>
+                       <input name="telefono" value={datos.telefono} onChange={handleChange} style={input} />
+                   </div>
+
+
+                   <div>
+                       <label style={label}>Roles</label>
                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                           {ALERGENOS_DISPONIBLES.map(alergeno => (
+                           {roles.map(rol => (
                                <button
-                                   key={alergeno}
+                                   key={rol.id}
                                    type="button"
-                                   onClick={() => handleAlergeno(alergeno)}
+                                   onClick={() => handleRol(rol.id)}
                                    style={{
                                        padding: '0.3rem 0.8rem',
                                        borderRadius: '4px',
                                        fontSize: '0.95rem',
                                        cursor: 'pointer',
                                        fontFamily: 'serif',
-                                       border: datos.alergenos.includes(alergeno)
+                                       border: datos.roles.includes(rol.id)
                                            ? '1px solid #a0be94'
                                            : '1px solid #444',
-                                       backgroundColor: datos.alergenos.includes(alergeno)
+                                       backgroundColor: datos.roles.includes(rol.id)
                                            ? '#1a2e1a'
                                            : 'transparent',
-                                       color: datos.alergenos.includes(alergeno)
+                                       color: datos.roles.includes(rol.id)
                                            ? '#a0be94'
                                            : '#888',
                                    }}
                                >
-                                   {alergeno}
+                                   {rol.nombre}
                                </button>
                            ))}
                        </div>
                    </div>
 
 
-                   <div>
-                       <label style={label}>Imagen actual</label>
-                       {plato.imagen && <img src={`/storage/${plato.imagen}`} alt={plato.nombre} style={{ width: '150px', borderRadius: '4px', marginBottom: '0.5rem', display: 'block' }} />}
-                       <input name="imagen" type="file" accept="image/*" onChange={(e) => setDatos({ ...datos, imagen: e.target.files[0] })} style={input} />
-                   </div>
-
-
-                   <div>
-                       <label style={label}>Categoría</label>
-                       <select name="categoria_id" value={datos.categoria_id} onChange={handleChange} required style={input}>
-                           <option value="">Selecciona una categoría</option>
-                           {categorias.map((cat) => (
-                               <option key={cat.id} value={cat.id}>{cat.nombre}</option>
-                           ))}
-                       </select>
-                   </div>
-
-
                    <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
                        <button type="submit" style={botonGuardar}>Guardar cambios</button>
-                       <a href="/platos" style={botonCancelar}>Cancelar</a>
+                       <a href="/usuarios" style={botonCancelar}>Cancelar</a>
                    </div>
                </form>
            </div>
        </div>
    );
 }
-
-
-

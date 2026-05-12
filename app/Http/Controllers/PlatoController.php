@@ -14,20 +14,20 @@ use Inertia\Inertia;
 class PlatoController extends Controller
 {
    public function index()
-{
-   Gate::authorize('admin');
+   {
+       Gate::authorize('admin');
 
 
-   $platos = Plato::with('categoria')->orderBy('nombre')->get();
-   return Inertia::render('AdminPlatos', [
-       'platos' => $platos,
-   ]);
-}
+       $platos = Plato::with('categoria')->orderBy('nombre')->get();
+       return Inertia::render('AdminPlatos', [
+           'platos' => $platos,
+       ]);
+   }
 
 
    public function create()
    {
-   Gate::authorize('admin');
+       Gate::authorize('admin');
 
 
        $categorias = Categoria::all();
@@ -39,15 +39,15 @@ class PlatoController extends Controller
 
    public function store(Request $request)
    {
-   Gate::authorize('admin');
+       Gate::authorize('admin');
 
 
        $datos = $request->validate([
-           'nombre'       => ['required', 'string', 'max:255'],
-           'descripcion'  => ['nullable', 'string'],
-           'precio'       => ['required', 'numeric', 'min:0'],
-           'alergenos'    => ['nullable', 'string'],
-           'imagen'       => ['nullable', 'image', 'max:2048'],
+           'nombre' => ['required', 'string', 'max:255'],
+           'descripcion' => ['nullable', 'string'],
+           'precio' => ['required', 'numeric', 'min:0'],
+           'alergenos' => ['nullable', 'string'],
+           'imagen' => ['nullable', 'image', 'max:2048'],
            'categoria_id' => ['required', 'exists:categorias,id'],
        ]);
 
@@ -66,7 +66,7 @@ class PlatoController extends Controller
 
    public function show(Plato $plato)
    {
-   Gate::authorize('admin');
+       Gate::authorize('admin');
 
 
        $plato->load('categoria');
@@ -78,12 +78,12 @@ class PlatoController extends Controller
 
    public function edit(Plato $plato)
    {
-   Gate::authorize('admin');
+       Gate::authorize('admin');
 
 
        $categorias = Categoria::all();
        return Inertia::render('AdminPlatosEdit', [
-           'plato'      => $plato,
+           'plato' => $plato,
            'categorias' => $categorias,
        ]);
    }
@@ -91,15 +91,15 @@ class PlatoController extends Controller
 
    public function update(Request $request, Plato $plato)
    {
-   Gate::authorize('admin');
+       Gate::authorize('admin');
 
 
        $datos = $request->validate([
-           'nombre'       => ['required', 'string', 'max:255'],
-           'descripcion'  => ['nullable', 'string'],
-           'precio'       => ['required', 'numeric', 'min:0'],
-           'alergenos'    => ['nullable', 'string'],
-           'imagen'       => ['nullable', 'image', 'max:2048'],
+           'nombre' => ['required', 'string', 'max:255'],
+           'descripcion' => ['nullable', 'string'],
+           'precio' => ['required', 'numeric', 'min:0'],
+           'alergenos' => ['nullable', 'string'],
+           'imagen' => ['nullable', 'image', 'max:2048'],
            'categoria_id' => ['required', 'exists:categorias,id'],
        ]);
 
@@ -120,12 +120,14 @@ class PlatoController extends Controller
 
    public function destroy(Plato $plato)
    {
-   Gate::authorize('admin');
+       Gate::authorize('admin');
 
 
        $plato->delete();
        return redirect()->route('platos.index')->with('Plato eliminado correctamente.');
    }
+
+
 
 
 }
