@@ -141,8 +141,3 @@ const botonEliminar = { padding: '0.35rem 0.8rem', border: '1px solid #c0392b', 
        </div>
    );
 }
-
-
-
-
-

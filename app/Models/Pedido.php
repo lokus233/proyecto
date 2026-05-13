@@ -10,7 +10,7 @@ class Pedido extends Model
 {
     protected $fillable = [
         'user_id',
-        'total',
+        'precio_total',
         'estado',
     ];
 

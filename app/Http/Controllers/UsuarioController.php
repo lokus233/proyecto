@@ -85,10 +85,8 @@ class UsuarioController extends Controller
    public function toggleActivo(User $usuario)
    {
        Gate::authorize('admin');
-
-
-       $usuario->update(['activo' => !$usuario->activo]);
-       return redirect()->route('usuarios.index');
+    $usuario->update(['activo' => !$usuario->activo]);
+    return redirect('/usuarios');
    }
 
 

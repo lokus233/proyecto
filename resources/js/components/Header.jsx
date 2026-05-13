@@ -155,6 +155,7 @@ function Header() {
                                <Link href="/platos" style={enlaceDropdown} onClick={() => setAdminAbierto(false)}>Platos</Link>
                                <Link href="/adminCategorias" style={enlaceDropdown} onClick={() => setAdminAbierto(false)}>Categorías</Link>
                                <Link href="/usuarios" style={enlaceDropdown} onClick={() => setAdminAbierto(false)}>Usuarios</Link>
+                               <Link href="/adminPedidos" style={enlaceDropdown} onClick={() => setAdminAbierto(false)}>Pedidos</Link>
                            </div>
                        )}
                    </div>
@@ -162,6 +163,9 @@ function Header() {
                <Link href="/carrito" style={botonCarrito}>
                    🛒 {totalCarrito}
                </Link>
+               <Link href="/mis-pedidos" style={{ fontSize: '1.1rem', color: '#e3e0dd', textDecoration: 'underline' }}>
+   Mis pedidos
+</Link>
                <span style={nombreUsuario}>{usuario.nombre}</span>
                <Link
                    href="/logout"

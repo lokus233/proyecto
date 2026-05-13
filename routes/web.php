@@ -60,18 +60,18 @@ Route::get('/register', function () {
 
 Route::post('/register', function (Request $request) {
    $datosRegistro = $request->validate([
-       'nombre'    => ['required', 'string', 'max:255'],
+       'nombre' => ['required', 'string', 'max:255'],
        'apellidos' => ['required', 'string', 'max:255'],
-       'email'     => ['required', 'email', 'unique:users'],
-       'telefono'  => ['nullable', 'string', 'max:20'],
-       'password'  => ['required', 'confirmed', 'min:8'],
+       'email' => ['required', 'email', 'unique:users'],
+       'telefono' => ['nullable', 'string', 'max:20'],
+       'password' => ['required', 'confirmed', 'min:8'],
    ]);
    $usuario = \App\Models\User::create([
-       'nombre'    => $datosRegistro['nombre'],
+       'nombre' => $datosRegistro['nombre'],
        'apellidos' => $datosRegistro['apellidos'],
-       'email'     => $datosRegistro['email'],
-       'telefono'  => $datosRegistro['telefono'] ?? null,
-       'password'  => bcrypt($datosRegistro['password']),
+       'email' => $datosRegistro['email'],
+       'telefono' => $datosRegistro['telefono'] ?? null,
+       'password' => bcrypt($datosRegistro['password']),
    ]);
    Auth::login($usuario);
    return redirect('/');
@@ -94,11 +94,9 @@ Route::middleware(['auth'])->group(function () {
        return Inertia::render('carrito');
    })->name('carrito');
    Route::resource('pedidos', PedidoController::class)->only(['store', 'update', 'destroy']);
-Route::get('/adminPedidos', [PedidoController::class, 'index'])->name('pedidos.index');
+   Route::get('/adminPedidos', [PedidoController::class, 'index'])->name('pedidos.index');
+   Route::get('/mis-pedidos', [PedidoController::class, 'misPedidos'])->name('pedidos.mis');
 });
 
 
 require __DIR__ . '/settings.php';
-
-
-
