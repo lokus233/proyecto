@@ -13,8 +13,8 @@ return new class extends Migration
 {
     Schema::create('pedido_plato', function (Blueprint $table) {
         $table->id();
-        $table->foreignId('pedido_id')->constrained();
-        $table->foreignId('plato_id')->constrained();
+        $table->foreignId('pedido_id')->constrained()->onDelete('cascade');
+        $table->foreignId('plato_id')->constrained()->onDelete('cascade');
         $table->integer('cantidad');
 
         $table->timestamps();

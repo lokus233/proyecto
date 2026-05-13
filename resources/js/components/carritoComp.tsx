@@ -63,3 +63,5 @@ export function useCarrito() {
    if (!context) throw new Error('useCarrito debe usarse dentro de CarritoProvider');
    return context;
 }
+
+
