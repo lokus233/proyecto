@@ -26,10 +26,12 @@ export default function AdminPlatos({ platos }) {
    }
 
 
-const th = { padding: '1rem', textAlign: 'left', fontSize: '1.3rem', fontWeight: '600', color: '#e3e0dd' };
-const td = { padding: '0.9rem 1rem', fontSize: '1.1rem', color: '#e3e0dd' };
-const botonEditar = { padding: '0.35rem 0.8rem', border: '1px solid #a0be94', borderRadius: '4px', textDecoration: 'none', fontSize: '1.1rem', color: '#a0be94' };
-const botonEliminar = { padding: '0.35rem 0.8rem', border: '1px solid #c0392b', borderRadius: '4px', backgroundColor: 'transparent', fontSize: '1.1rem', color: '#c0392b', cursor: 'pointer' };
+   const th = { padding: '1rem', textAlign: 'left', fontSize: '1.3rem', fontWeight: '600', color: '#e3e0dd' };
+   const td = { padding: '0.9rem 1rem', fontSize: '1.1rem', color: '#e3e0dd' };
+   const botonEditar = { padding: '0.35rem 0.8rem', border: '1px solid #a0be94', borderRadius: '4px', textDecoration: 'none', fontSize: '1.1rem', color: '#a0be94' };
+   const botonEliminar = { padding: '0.35rem 0.8rem', border: '1px solid #c0392b', borderRadius: '4px', backgroundColor: 'transparent', fontSize: '1.1rem', color: '#c0392b', cursor: 'pointer' };
+   const botonOcultar = { padding: '0.35rem 0.8rem', border: '1px solid #e3a020', borderRadius: '4px', backgroundColor: 'transparent', fontSize: '1.1rem', color: '#e3a020', cursor: 'pointer' };
+   const botonMostrar = { padding: '0.35rem 0.8rem', border: '1px solid #a0be94', borderRadius: '4px', backgroundColor: 'transparent', fontSize: '1.1rem', color: '#a0be94', cursor: 'pointer' };
 
 
    const eliminar = (id) => {
@@ -113,6 +115,7 @@ const botonEliminar = { padding: '0.35rem 0.8rem', border: '1px solid #c0392b', 
                            <th style={th}>Nombre</th>
                            <th style={th}>Categoría</th>
                            <th style={th}>Precio</th>
+                           <th style={th}>Estado</th>
                            <th style={th}>Acciones</th>
                        </tr>
                    </thead>
@@ -122,15 +125,26 @@ const botonEliminar = { padding: '0.35rem 0.8rem', border: '1px solid #c0392b', 
                                <td style={td}>{plato.nombre}</td>
                                <td style={td}>{plato.categoria?.nombre ?? '—'}</td>
                                <td style={td}>{plato.precio} €</td>
-                               <td style={{ ...td, display: 'flex', gap: '2rem' }}>
+                               <td style={td}>
+                                   <span style={{ color: plato.activo ? '#a0be94' : '#e3a020' }}>
+                                       {plato.activo ? 'Visible' : 'Oculto'}
+                                   </span>
+                               </td>
+                               <td style={{ ...td, display: 'flex', gap: '1rem' }}>
                                    <Link href={`/platos/${plato.id}/edit`} style={botonEditar}>Editar</Link>
+                                   <button
+                                       onClick={() => router.put(`/platos/${plato.id}/toggle`)}
+                                       style={plato.activo ? botonOcultar : botonMostrar}
+                                   >
+                                       {plato.activo ? 'Ocultar' : 'Mostrar'}
+                                   </button>
                                    <button onClick={() => eliminar(plato.id)} style={botonEliminar}>Eliminar</button>
                                </td>
                            </tr>
                        ))}
                        {platosFiltrados.length === 0 && (
                            <tr>
-                               <td colSpan={4} style={{ textAlign: 'center', padding: '2rem', color: '#888' }}>
+                               <td colSpan={5} style={{ textAlign: 'center', padding: '2rem', color: '#888' }}>
                                    No hay platos en esta categoría.
                                </td>
                            </tr>
@@ -141,3 +155,6 @@ const botonEliminar = { padding: '0.35rem 0.8rem', border: '1px solid #c0392b', 
        </div>
    );
 }
+
+
+

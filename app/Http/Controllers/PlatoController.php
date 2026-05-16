@@ -128,6 +128,18 @@ class PlatoController extends Controller
    }
 
 
+   public function toggleActivo(Plato $plato)
+{
+   Gate::authorize('admin');
+   $plato->update(['activo' => !$plato->activo]);
+   return redirect()->back();
+}
+
+
 
 
 }
+
+
+
+

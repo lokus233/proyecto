@@ -7,6 +7,7 @@ interface CarritoContextType {
    agregarAlCarrito: (plato: Plato) => void;
    quitarDelCarrito: (id: number) => void;
    cambiarCantidad: (id: number, cantidad: number) => void;
+   vaciarCarrito: () => void;
 }
 
 
@@ -50,8 +51,13 @@ export function CarritoProvider({ children }: { children: React.ReactNode }) {
    };
 
 
+   const vaciarCarrito = () => {
+       setCarrito([]);
+   };
+
+
    return (
-       <CarritoContext.Provider value={{ carrito, agregarAlCarrito, quitarDelCarrito, cambiarCantidad }}>
+       <CarritoContext.Provider value={{ carrito, agregarAlCarrito, quitarDelCarrito, cambiarCantidad, vaciarCarrito }}>
            {children}
        </CarritoContext.Provider>
    );
@@ -63,5 +69,6 @@ export function useCarrito() {
    if (!context) throw new Error('useCarrito debe usarse dentro de CarritoProvider');
    return context;
 }
+
 
 

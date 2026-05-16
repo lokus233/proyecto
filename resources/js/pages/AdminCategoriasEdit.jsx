@@ -69,3 +69,6 @@ export default function AdminCategoriasEdit({ categoria }) {
        </div>
    );
 }
+
+
+

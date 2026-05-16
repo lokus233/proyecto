@@ -89,6 +89,7 @@ Route::middleware(['auth'])->group(function () {
    Route::get('/adminCategorias', [CategoriaController::class, 'adminIndex'])->name('categorias.admin');
    Route::put('/categorias/{categoria}/toggle', [CategoriaController::class, 'cambiarActivoOculto'])->name('categorias.toggle');
    Route::resource('usuarios', UsuarioController::class);
+   Route::put('/platos/{plato}/toggle', [PlatoController::class, 'toggleActivo'])->name('platos.toggle');
    Route::put('/usuarios/{usuario}/toggle', [UsuarioController::class, 'toggleActivo'])->name('adminUsuarios.toggle');
    Route::get('/carrito', function () {
        return Inertia::render('carrito');
@@ -100,3 +101,6 @@ Route::middleware(['auth'])->group(function () {
 
 
 require __DIR__ . '/settings.php';
+
+
+

@@ -22,7 +22,7 @@ export default function AdminCategorias({ categorias }) {
    const botonEditar = { padding: '0.35rem 0.8rem', border: '1px solid #a0be94', borderRadius: '4px', textDecoration: 'none', fontSize: '1.1rem', color: '#a0be94' };
    const botonEliminar = { padding: '0.35rem 0.8rem', border: '1px solid #c0392b', borderRadius: '4px', backgroundColor: 'transparent', fontSize: '1.1rem', color: '#c0392b', cursor: 'pointer' };
    const botonOcultar = { padding: '0.35rem 0.8rem', border: '1px solid #e3a020', borderRadius: '4px', backgroundColor: 'transparent', fontSize: '1.1rem', color: '#e3a020', cursor: 'pointer' };
-   const botonMostrar = { padding: '0.35rem 0.8rem', border: '1px solid #a0be94', borderRadius: '4px', backgroundColor: 'transparent', fontSize: '1.1rem', color: '#a0be94', cursor: 'pointer' };
+const botonMostrar = { padding: '0.35rem 0.8rem', border: '1px solid #a0be94', borderRadius: '4px', backgroundColor: 'transparent', fontSize: '1.1rem', color: '#a0be94', cursor: 'pointer' };
 
 
 
@@ -118,3 +118,6 @@ export default function AdminCategorias({ categorias }) {
        </div>
    );
 }
+
+
+

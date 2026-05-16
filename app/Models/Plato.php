@@ -15,6 +15,7 @@ class Plato extends Model
         'alergenos',
         'imagen',
         'categoria_id',
+        'activo',
     ];
 
 

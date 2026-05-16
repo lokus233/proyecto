@@ -11,20 +11,18 @@ use Inertia\Inertia;
 class CategoriaController extends Controller
 {
    public function index()
-   {
+{
+   $categorias = Categoria::where('activo', true)->with([
+       'platos' => function ($query) {
+           $query->where('activo', true)->orderBy('nombre');
+       }
+   ])->get();
 
 
-       $categorias = Categoria::where('activo', true)->with([
-           'platos' => function ($query) {
-               $query->orderBy('nombre');
-           }
-       ])->get();
-
-
-       return Inertia::render('carta', [
-           'categorias' => $categorias,
-       ]);
-   }
+   return Inertia::render('carta', [
+       'categorias' => $categorias,
+   ]);
+}
 
 
 
@@ -98,13 +96,24 @@ class CategoriaController extends Controller
 
 
    public function destroy(Categoria $categoria)
-   {
-       Gate::authorize('admin');
+{
+   Gate::authorize('admin');
 
 
-       $categoria->delete();
-       return redirect()->route('categorias.admin')->with('success', 'Categoría eliminada correctamente.');
-   }
+   $ocultos = Categoria::firstOrCreate(
+       ['nombre' => 'OCULTOS'],
+       ['descripcion' => 'Categoría para platos de categorías eliminadas', 'activo' => false]
+   );
+
+
+   $categoria->platos()->update(['categoria_id' => $ocultos->id]);
+
+
+   $categoria->delete();
+
+
+   return redirect()->route('categorias.admin')->with('success', 'Categoría eliminada. Los platos se han movido a OCULTOS.');
+}
 
 
    public function adminIndex()

@@ -85,8 +85,10 @@ class UsuarioController extends Controller
    public function toggleActivo(User $usuario)
    {
        Gate::authorize('admin');
-    $usuario->update(['activo' => !$usuario->activo]);
-    return redirect('/usuarios');
+
+
+       $usuario->update(['activo' => !$usuario->activo]);
+       return redirect()->route('usuarios.index');
    }
 
 
@@ -97,3 +99,6 @@ class UsuarioController extends Controller
        return redirect()->route('usuarios.index')->with('success', 'Usuario eliminado correctamente.');
    }
 }
+
+
+

@@ -13,6 +13,7 @@ interface Props {
 export default function MenuCarta({ categorias = [] }: Props) {
    const { auth } = usePage().props as any;
    const usuario = auth?.user;
+   const esAdmin = auth?.esAdmin;
    const { agregarAlCarrito } = useCarrito();
    const [activa, setActiva] = useState(0);
 
@@ -74,12 +75,13 @@ export default function MenuCarta({ categorias = [] }: Props) {
                    <TarjetaPlato
                        key={plat.id}
                        {...plat}
-                       onAdd={usuario ? agregarAlCarrito : undefined}
+                       onAdd={usuario && !esAdmin ? agregarAlCarrito : undefined}
                    />
                ))}
            </div>
        </section>
    );
 }
+
 
 
